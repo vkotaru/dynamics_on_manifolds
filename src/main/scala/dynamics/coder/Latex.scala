@@ -3,6 +3,7 @@ package dynamics.coder
 import java.io.{File, PrintWriter}
 
 import dynamics.data_types._
+
 object Latex {
 
   def checkSymbols(s_ugly: String): String = {
@@ -170,7 +171,7 @@ object Latex {
   //    return Tuple3(eom_latex, eom_scalar, eom_vector)
   //  }
 
-  def variationCoeffs2LatexEquation(coefficients: (Map[ScalarExpr, VectorExpr], Map[VectorExpr, MatrixExpr], Map[MatrixExpr, MatrixExpr]) ): String = {
+  def variationCoeffs2LatexEquation(coefficients: (Map[ScalarExpr, VectorExpr], Map[VectorExpr, MatrixExpr], Map[MatrixExpr, MatrixExpr])): String = {
     var latexEquation: String = "Variation Coefficients extracted\n\\begin{gather}\n"
     for ((k, v) <- coefficients._2) {
       val ks: String = printVLatex(k)
@@ -186,12 +187,21 @@ object Latex {
     val FILE_PATH = new java.io.File(".").getCanonicalPath
     val directory = new File(FILE_PATH + File.separator + "output" + File.separator + "latex")
     directory.mkdirs()
-    val writer = new PrintWriter(new File(directory+ File.separator + fileName + ".tex"))
+    val writer = new PrintWriter(new File(directory + File.separator + fileName + ".tex"))
     writer.write(fileName + ": Equations of Motion\n\\begin{itemize}\n")
     for (str <- equations) {
       writer.write("""\item """ + str + "\n")
     }
     writer.write("""\end{itemize}""")
+    writer.close()
+  }
+
+  def saveString2File(string: String, fileName: String): Unit = {
+    val FILE_PATH = new java.io.File(".").getCanonicalPath
+    val directory = new File(FILE_PATH + File.separator + "output" + File.separator + "latex")
+    directory.mkdirs()
+    val writer = new PrintWriter(new File(directory + File.separator + fileName + ".tex"))
+    writer.write(string)
     writer.close()
   }
 

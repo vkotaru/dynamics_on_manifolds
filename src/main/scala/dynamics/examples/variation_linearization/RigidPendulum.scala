@@ -9,7 +9,7 @@ object RigidPendulum {
 
   def main(): Unit = {
 
-    //     Point-mass
+    //     RigidPendulum
     val filename: String = "VariationRigidPendulum"
 
     // Angular velocity SO3
